@@ -8,7 +8,7 @@ PS.我只是把我平常做的事情和一些東東弄成skill方便我偷懶，
 
 ## Skills 清單
 
-本安裝包包含以下七個 skills：
+本安裝包包含以下八個 skills：
 
 | Skill | 解決什麼問題 | 主要檢查內容 |
 | --- | --- | --- |
@@ -18,6 +18,7 @@ PS.我只是把我平常做的事情和一些東東弄成skill方便我偷懶，
 | [i18n-check](skills/i18n-check/SKILL.md) | 缺漏翻譯、語系 key 不一致、文字或語系切換異常 | 靜態／動態 key、fallback、插值、plural、硬編碼 UI 與格式化 |
 | [timeseries-chart-debug](skills/timeseries-chart-debug/SKILL.md) | 圖表缺點、時間偏移、聚合錯誤或查詢緩慢 | 時間語意、資料來源、區間邊界、降採樣、API、圖表轉換與效能分層 |
 | [mqtt-dataflow-check](skills/mqtt-dataflow-check/SKILL.md) | 裝置送出訊息但資料未出現、最新值不更新或重複／亂序 | 連線、訂閱、topic、consumer、queue、commit、snapshot、API 與 UI |
+| [cve-root-cause-review](skills/cve-root-cause-review/SKILL.md) | 將 CVE 研究轉成根因審查與可反證測試 | 55 項檢查、來源頁碼、適用性、證據與修補複測 |
 | [migration-review](skills/migration-review/SKILL.md) | schema 升級不相容、交易不完整、重跑或失敗恢復不明確 | 舊資料、constraint、runner、metadata、鎖、部署順序與回復方案 |
 
 只有 `i18n-check` 附帶執行腳本，其餘以工作流程與檢查規範為主。安裝 skill 不會啟動專案服務或執行檢查。
@@ -28,7 +29,7 @@ PS.我只是把我平常做的事情和一些東東弄成skill方便我偷懶，
 
 ### 從本機資料夾安裝
 
-在這個 README 所在的資料夾執行，將七個 skills 安裝給 Codex 跨專案使用：
+在這個 README 所在的資料夾執行，將八個 skills 安裝給 Codex 跨專案使用：
 
 ```sh
 npx skills add . --skill '*' -g -a codex
@@ -95,7 +96,7 @@ Agent 也可依任務與 skill 描述選用適合的流程。通常先選最貼�
 
 ### 工作模式
 
-七個 skills 使用一致的模式選擇方式：
+原有七個開發 skills 使用一致的模式選擇方式：
 
 | 模式 | 適合需求 | 執行範圍 |
 | --- | --- | --- |
@@ -148,7 +149,7 @@ tests/
 └── test_compare_locales.py
 ```
 
-每個 skill 都包含 `SKILL.md` 與兩份 reference；上圖以 `i18n-check` 展開示範。各 skill 的必要資源都放在自己的資料夾內，沒有其他 skill 的隱含依賴。
+原有七個 skill 都包含 `SKILL.md` 與兩份 reference；CVE skill 使用 CHECKLIST、SOURCE、REPORTING 三份參考文件；上圖以 `i18n-check` 展開示範。各 skill 的必要資源都放在自己的資料夾內，沒有其他 skill 的隱含依賴。
 
 | 檔案 | 內容 | 讀取時機 |
 | --- | --- | --- |
@@ -210,7 +211,15 @@ python3 -B -m unittest discover -s tests -v
 
 目前涵蓋翻譯值不影響結構判斷、缺少／多出／型別差異、多語系與輸出筆數限制、JSON Pointer、array／null／空容器，以及無效輸入與重複 key。
 
-文件格式、連結與封裝檢查，只能確認資源結構。腳本測試只驗證 JSON 比較工具；七個流程仍需搭配目標專案的工具與環境驗證，尚未因此完成真實服務的端到端演練。
+文件格式、連結與封裝檢查，只能確認資源結構。腳本測試只驗證 JSON 比較工具；各流程仍需搭配目標專案的工具與環境驗證，尚未因此完成真實服務的端到端演練。
 
 載入 skill 不會擴張使用者授權。資料庫變更、MQTT 主動發布、負載測試及其他環境操作，依原任務授權執行；已有明確授權的操作不重複要求確認。
 
+
+## CVE 研究蒸餾
+
+新增 [cve-root-cause-review](skills/cve-root-cause-review/SKILL.md)，完整清單見 [55 項檢查矩陣](skills/cve-root-cause-review/references/CHECKLIST.md)，原文疑義及頁碼見 [來源說明](skills/cve-root-cause-review/references/SOURCE.md)。這是供 Qwen 或其他代理於內部私有測試時按需調度的獨立知識 skill；可單獨使用整個 skill 資料夾，由宿主提供工具與載入方式。
+
+```text
+$cve-root-cause-review 對指定模組做範圍審查，依檢查矩陣列出適用項、證據與尚未驗證的缺口，先使用離線來源及 fixture。
+```
