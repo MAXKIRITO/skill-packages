@@ -79,42 +79,103 @@
 產出之程式碼若包含 `DESIGN.md` 明令禁止之字體、色彩、三欄卡片或等距留白，視為嚴重格式違規。
 ```
 
+### 1.3 兩階段強制前置閘門與 0-Card 開放式排版實作
+
+在從零建立任何新介面時，模型必須先在輸出開頭寫下 `[設計合約鎖定]` 六行約定，再輸出代碼：
+
+```plaintext
+[設計合約鎖定]
+- 流派與參考：Editorial Print（0-Card 開放式畫布，0px 直角工藝風）
+- 色彩表：底色 #F5F4F0 / 主墨 #141413 / 單一強調 #B84A2E（嚴禁任何多段漸層與光暈）
+- 字體與級距：Noto Serif TC (56px, weight 400) / Plus Jakarta Sans (16px, weight 400) -> 跳躍比 3.5x
+- 版面骨架：12 欄不對稱佈局，主要資訊錨定，區塊以 1px hairline 分割，內文一律靠左
+- 禁用確認：無白底圓角卡片堆疊、無 Emoji 標籤、無發光光環、無裝飾性偽狀態指示器
+- 文案真實度：無萬用空洞樣板句，第一句直接陳述具體功能、業務事實或實際數據
+```
+
+#### 0-Card 開放式畫布通用代碼模式（對照白底卡片套路）
+
+此架構通用於各類產品介紹、規格手冊、條目清單與內容介面：
+
+```html
+<!-- ❌ 錯誤：AI 常見的「卡片套卡片」垂直堆疊與等寬三欄套路 -->
+<div class="bg-slate-100 p-8 flex justify-center">
+  <div class="bg-white rounded-2xl shadow-sm p-8 max-w-xl">
+    <div class="bg-white rounded-xl shadow-sm p-4 border flex items-center">
+      <span class="rounded-full bg-blue-50 p-2">📍</span>
+      <p>核心特性：即時分散式串流</p>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ 正確：0-Card 開放式畫布（單一紙色底、1px 細線分割、靠左不對稱，通用各類內容） -->
+<main class="min-h-screen bg-[#F5F4F0] text-[#141413] px-8 py-24 md:py-40">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+    <!-- 左側 4 欄：固定核心識別／導航區塊 -->
+    <header class="md:col-span-4 border-t-2 border-[#141413] pt-6 md:sticky md:top-24">
+      <h1 class="font-serif text-5xl md:text-6xl font-normal tracking-tight leading-none">Apex Engine</h1>
+      <p class="font-mono text-xs uppercase tracking-widest text-neutral-500 mt-2">High-Throughput Stream Pipeline</p>
+      <p class="text-sm text-neutral-600 mt-6 leading-relaxed">
+        專注於低延遲分散式資料流處理與高頻時序監控。以零記憶體拷貝架構支撐每秒數十萬筆即時訊息吞吐。
+      </p>
+    </header>
+
+    <!-- 右側 8 欄：主條目列表（以 1px hairline 分割，無圓角白卡） -->
+    <div class="md:col-span-8 space-y-16">
+      <section class="border-t border-neutral-300 pt-6">
+        <h2 class="font-mono text-xs uppercase tracking-widest text-[#B84A2E] mb-6">系統規格與效能指標</h2>
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-y-8 gap-x-12 text-sm">
+          <div>
+            <dt class="font-mono text-xs text-neutral-500 uppercase">Throughput</dt>
+            <dd class="font-medium mt-1">250,000 ops / sec</dd>
+          </div>
+          <div>
+            <dt class="font-mono text-xs text-neutral-500 uppercase">Latency</dt>
+            <dd class="font-medium mt-1">p99 < 1.2ms (Zero-Copy Buffer)</dd>
+          </div>
+        </dl>
+      </section>
+    </div>
+  </div>
+</main>
+```
+
 ---
 
-## 2. 注入「負向黑名單」提示詞（含次高機率防滑落）
+## 2. 注入「負向黑名單」提示詞（含次高機率防滑落與裝飾性套路）
 
-大型語言模型在推理時具備極佳的負向排除能力，但若只禁止第一層預設，會觸發「次高機率滑落現象」（例如禁了 `Inter` 就滑向 `Space Grotesk`）。必須連同替代品一併封鎖。
+大型語言模型在推理時具備極佳的負向排除能力，但若只禁止第一層預設，會觸發「次高機率滑落現象」（例如禁了紫藍漸層就滑向紫粉漸層、禁了 SaaS 卡片就滑向置中 Bento 盒）。必須連同替代品一併封鎖。
 
 ### 2.1 複製即用提示詞區塊 (`<anti_slop_constraints>`)
 
 ```xml
 <anti_slop_constraints>
-1. 禁止字體與字重：
-   - 嚴禁使用：Inter, Roboto, Arial, system-ui。
-   - 同時嚴禁次高機率備案：Space Grotesk, Poppins, Manrope。
+1. 禁止色彩與光影變種：
+   - 嚴禁使用紫藍漸層 (violet-to-indigo) 及任何紫粉漸層 (pink/fuchsia/purple/rose)。
+   - 嚴禁頭像、圖標或容器外圍套上紫色/粉色發光圓環 (glowing rings)。
+   - 嚴禁在深色模式套用亮青色 (Cyan) 霓虹發光，嚴禁背景散落高斯模糊彩色光球 (blur-2xl / blur-3xl blobs)。
+   - 嚴禁點陣網格背景 (dot grid) 與滿版毛玻璃 (backdrop-blur)。
+
+2. 禁止容器結構與排版套路：
+   - 嚴禁「卡片套卡片」垂直堆疊結構（白底大圓角卡片包多張白底小圓角卡片，外加微弱陰影）。
+   - 強制採用「0-Card 開放式畫布」：內容直接坐在單一紙色背景上，僅以留白與 1px 實線細線 (hairline) 分隔。
+   - 嚴禁全頁 text-center 置中（大標題可置中，但副標、內文與說明一律靠左對齊）。
+   - 嚴禁 grid-cols-3 等寬圖示卡片；嚴禁在項目旁放置藍底、黃底、紫底的淺色圓圈線條小圖示。
+   - 嚴禁區塊垂直留白小於 120px（桌面端強制 ≥ 160px）。
+
+3. 裝飾性假元素與微元件禁令：
+   - 嚴禁無功能意義的懸浮偽狀態指示器（如帶綠點的 🟢「探索新機會中/Available/Live/Active」等無實際狀態綁定的偽 Badge）。
+   - 嚴禁孤立的圓形圖示按鈕無端堆疊。
+   - 嚴禁在標籤、按鈕或條目中塞入純裝飾性 Emoji 藥丸海（如 💻、🎨、⚡、🤖、☕、🚀、🔥 等）。
+
+4. 禁止字體與字重套路：
+   - 嚴禁使用：Inter, Roboto, Arial, system-ui，且嚴禁次高備案：Space Grotesk, Poppins, Manrope。
    - 嚴禁在 Hero / Display 大標題一律硬套 font-weight: 700 / 800；必須採用 400-500 字重配合 3 倍以上字級跳躍。
 
-2. 禁止色彩與背景：
-   - 嚴禁使用 violet / purple / indigo 多段漸層 (如 from-violet-600 to-indigo-700)。
-   - 嚴禁在深色模式套用亮青色 (Cyan) 霓虹發光或模糊背景彩球 (blurred blobs)。
-   - 嚴禁點陣網格背景 (dot grid background)。
-   - 嚴禁滿版彩虹標籤與漸層按鈕。
-
-3. 禁止版面與序列：
-   - 嚴禁全頁 text-center 置中排版（大標題可置中，但副標、內文與說明必須左對齊）。
-   - 嚴禁「頂部小膠囊標籤 → 置中大標題 → 灰字副標 → 雙按鈕 → 懸浮儀表板截圖」之固定八股序列。
-   - 嚴禁 grid-cols-3 等寬圖示卡片排列。
-   - 嚴禁區塊垂直留白小於 120px（桌面端強制 160px 以上）。
-
-4. 禁止元件與裝飾套路：
-   - 嚴禁所有組件無差別套用 16px (rounded-2xl) 圓角；按鈕、卡片與輸入框必須有差異化圓角或採 0px 銳利工藝風。
-   - 嚴禁使用淺色圓圈包覆 Lucide 打勾圖示 (如 bg-emerald-500/10 text-emerald-500 p-2 rounded-full)。
-   - 嚴禁使用紫粉漸層之「Most Popular」或「Best Value」膠囊標籤。
-   - 嚴禁裝飾性幾何 SVG 波浪 (wave divider) 與 Blob。
-
-5. 禁止假文案與虛構評價：
-   - 嚴禁使用「Unlock the power of...」、「簡單、快速、強大」等萬用空洞標語。
-   - 嚴禁在無真實用戶授權時放置五顆琥珀色滿分星星與 DiceBear 幾何頭像；改用真實簡報資料、文字縮寫圓標或直接省略該區塊。
+5. 禁止假文案與 AI 萬用樣板套話：
+   - 嚴禁任何無個性的模板空話（如「熱衷於打造優雅、直覺且具備極佳體驗…」、「在技術與美感之間找到平衡」、「Unlock the power of...」、「簡單、快速、強大」等換成任何主題皆通用的套話）。
+   - 第一句文案必須直接陳述具體的系統功能、業務事實或實際解決的工程/產品問題。
+   - 無真實數據時嚴禁放置 5 顆黃星與抽象幾何頭像。
 </anti_slop_constraints>
 ```
 
@@ -206,21 +267,47 @@ AI 無法憑空發明品味，但擅長在明確座標下執行。人類開發�
 
 ---
 
-## 6. 雙重審查閉環（Dual-Review Critique Loop）
+## 6. 反覆直接觀看與雙重審查閉環 (Iterative Visual Critique Loop)
 
-生成初版後，必須執行兩道獨立的審查程序，確保同時通過「視覺美學」與「工程功能」檢驗。
+「代碼只是假設，渲染才是事實」。生成初版後，嚴禁僅憑原始碼推論樣式，必須建立**「啟動預覽 → 直接觀看 → 批判反思 → 修改代碼 → 再次觀看」**的反覆視覺閉環。完整技術細節請參閱 [VISUAL_INSPECTION.md](VISUAL_INSPECTION.md)。
 
-### 6.1 第一道：視覺截圖批判審查 (Visual Critique Pass)
+### 6.1 啟動預覽與瀏覽器直接觀看
 
-將渲染頁面截圖（或提供渲染後的 DOM / CSS），依據以下檢查點進行反思重構：
+1. **啟動預覽服務**：
+   - 專案已有開發伺服器時：執行 `npm run dev` 或 `vite`。
+   - 靜態 HTML 頁面時：執行 `python3 skills/frontend-anti-slop/scripts/serve_preview.py path/to/page.html`。
+2. **調度瀏覽器直接觀看**：
+   - 在 Antigravity 環境下：立即調度 **`browser` subagent** 導航至 `http://localhost:PORT`，直接檢視視覺呈現、截取全頁長截圖，並讀取 DOM 節點實際渲染樣式。
+   - 在本機環境下：打開瀏覽器訪問該網址，或執行無頭瀏覽器截圖腳本捕捉高解析度全頁視圖。
+3. **受保護頁面（需登入）處置**：
+   - 若目標頁面受 Auth Guard 保護會自動重導至登入頁：
+     - **優先推薦（策略 A）**：在開發環境建立 Mock Auth 預覽路由（如 `src/pages/preview/dashboard.tsx`，以 Mock Context 直接渲染目標組件），徹底解耦後端與認證。
+     - **真實會話（策略 B）**：調度 `browser` subagent 打開登入頁，由人類使用者在可見視窗中登入（支援 2FA/SSO/CAPTCHA），完成後 Agent 刷新目標頁面直接觀看。
+     - **快速注入（策略 C）**：在 Console 注入測試 `localStorage` Token。詳細規範見 [VISUAL_INSPECTION.md](VISUAL_INSPECTION.md) 第 5 節。
 
-1. **遠看測試（Squint Test）**：將視線模糊或縮小至 25%，整頁是否有單一清晰的視覺錨點？若全頁有 10 個發光亮點或彩色彩球，代表色彩預算超標，立即將非核心元素降為灰階。
+### 6.2 第一道：視覺批判審查與反覆迭代 (Visual Critique Pass)
+
+依據實際渲染的像素畫面，執行以下批判檢驗：
+
+1. **遠看測試（Squint Test）**：將視線模糊或縮小至 25%，整頁是否有單一清晰的視覺錨點？若全頁有 10 個發光亮點或彩色彩球，代表色彩預算超標，立即將非核心元素降為中性灰墨色。
 2. **3 秒 AI 味辨識**：頁面是否一眼能看出 shadcn/ui 或 Tailwind 預設？檢查是否有紫藍漸層、rounded-2xl 泛濫或均分三欄。
-3. **節奏檢查**：垂直滾動時，各區塊的高度與留白是否均等死板？若有，將某一區垂直內距拉大至 200px，或將橫向寬度收窄至單欄。
+3. **節奏檢查**：垂直滾動時，各區塊的高度與留白是否均等死板？實際測量 Section 垂直內距是否達到 **160px** 以上；若有壓迫感，將某一區拉大至 200px，或將橫向寬度收窄為單欄。
+4. **提取真實計算樣式 (Computed Styles)**：
+   - 在瀏覽器 Console 中執行測量腳本（見 [VISUAL_INSPECTION.md](VISUAL_INSPECTION.md) 第 4 節），核對實際計算之 `font-size`、`padding-top` 與 `border-radius`。
+5. **代碼修改後「再次直接觀看」**：
+   - 每次修改 CSS 或組件結構後，**必須重新整理頁面並直接觀看改動後的截圖**。
+   - 進行前後像素疊加對比，確認 AI 味特徵逐項消退，直到 16 項標誌降至 0–1 項。
 
-### 6.2 第二道：功能性與無障礙補齊 (a11y & Engineering Pass)
+### 6.3 跨斷點響應式巡檢 (Responsive Multi-Breakpoint Check)
 
-AI 最常偷懶的是表單互動與無障礙屬性，必須逐項補齊：
+切換瀏覽器視窗寬度，反覆直接觀看三個標準斷點：
+- **桌面端（1440px / 1280px）**：確認 12 欄不對稱網格展開流暢，呼吸留白充裕。
+- **平板端（768px）**：確認欄位折疊順序正確，圖表與數據未破版。
+- **行動端（375px）**：確認主標題折行自然（避免孤字落單）、留白收縮至 96px、按鈕觸控區域 ≥ 44×44px。
+
+### 6.4 第二道：功能性與無障礙補齊 (a11y & Engineering Pass)
+
+AI 最常偷懶的是表單互動與無障礙屬性，在視覺收斂後逐項補齊：
 
 - [ ] **表單必填標示**：所有必填輸入框必須有明確標示（如紅星 `*` 或「必填」文字），且不可僅依賴 placeholder。
 - [ ] **行內驗證與錯誤提示**：輸入錯誤時，提供包含 `text-red-600`、`text-sm`、`role="alert"` 的具體錯誤提示，並將輸入框邊框高亮。

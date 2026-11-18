@@ -10,24 +10,27 @@ from pathlib import Path
 import re
 import sys
 
-# Define 16 AI Slop detection patterns
+# Define 20 AI Slop detection patterns (covering generic SaaS, Landing Pages, and Portfolio/Bio slop)
 SLOP_PATTERNS = [
     {
         "id": "SLOP-01",
-        "name": "紫藍多段漸層 (Violet/Indigo Gradient)",
+        "name": "紫藍／紫粉多段漸層與發光環 (Violet/Pink Gradient & Glow)",
         "category": "色彩與背景",
         "regex": re.compile(
-            r"(from-violet|to-indigo|via-purple|from-purple|to-violet|linear-gradient\([^)]*(#7c3aed|#6366f1|#8b5cf6|violet|indigo))",
+            r"(from-violet|to-indigo|via-purple|from-purple|to-violet|from-pink|to-pink|from-fuchsia|to-fuchsia|to-rose|"
+            r"ring-(?:purple|violet|pink|fuchsia)-(?:400|500|600)|"
+            r"bg-gradient-to-[rblt][^>]*text-transparent|"
+            r"linear-gradient\([^)]*(?:#7c3aed|#6366f1|#8b5cf6|#ec4899|#d946ef|#a855f7|violet|indigo|fuchsia|pink)\))",
             re.IGNORECASE,
         ),
-        "fix": "改用純色、OKLCH 色票或低彩度中性色 (如 neutral-900 / white)。",
+        "fix": "改用單一純色、OKLCH 色票或低彩度中性墨色 (如 #141413 / #F5F4F0)；嚴禁紫粉漸層與頭像發光環。",
     },
     {
         "id": "SLOP-02",
         "name": "預設字體 Inter / Roboto",
         "category": "字體與字重",
         "regex": re.compile(r"font-family:[\s\"']*['\"]?(Inter|Roboto|Arial)['\"]?", re.IGNORECASE),
-        "fix": "引入具備品牌個性的字體 (如 Fraunces, Plus Jakarta Sans, IBM Plex Sans)。",
+        "fix": "引入具備品牌個性的字體 (如 Noto Serif TC, Fraunces, Plus Jakarta Sans, IBM Plex Sans)。",
     },
     {
         "id": "SLOP-03",
@@ -53,14 +56,18 @@ SLOP_PATTERNS = [
     },
     {
         "id": "SLOP-06",
-        "name": "圓圈包覆打勾圖示 (Checkmark Circle)",
+        "name": "圓圈包覆打勾或指標圖示 (Circle Icon Containers)",
         "category": "裝飾與佔位",
-        "regex": re.compile(r"bg-(?:emerald|green|indigo|purple)-500\/10[^>]*rounded-full", re.IGNORECASE),
+        "regex": re.compile(
+            r"bg-(?:emerald|green|indigo|purple|blue|yellow|amber)-500\/10[^>]*rounded-full|"
+            r"bg-(?:blue|yellow|purple|emerald|indigo|pink)-(?:50|100)[^>]*rounded-full[^>]*p-[123]",
+            re.IGNORECASE,
+        ),
         "fix": "去除無意義裝飾性底色圓圈，改為純文字列表或極細 1px 線條隔開。",
     },
     {
         "id": "SLOP-07",
-        "name": "懸浮發光假儀表板截圖",
+        "name": "懸浮發光假儀表板截圖 (Floating Mockup)",
         "category": "版面與序列",
         "regex": re.compile(r"(?:rotate-\[-?\d+deg\]|shadow-(?:2xl|purple|indigo))[^>]*(?:dashboard|mockup|screenshot)", re.IGNORECASE),
         "fix": "放置真實產品功能展示或互動式 Live Demo，避免傾斜發光假截圖。",
@@ -91,16 +98,16 @@ SLOP_PATTERNS = [
         "id": "SLOP-11",
         "name": "模糊霓虹光暈 (Blurred Blobs)",
         "category": "色彩與背景",
-        "regex": re.compile(r"blur-(?:2xl|3xl)[^>]*(?:bg-purple|bg-indigo|bg-violet|bg-cyan)", re.IGNORECASE),
+        "regex": re.compile(r"blur-(?:2xl|3xl)[^>]*(?:bg-purple|bg-indigo|bg-violet|bg-cyan|bg-pink|bg-fuchsia)", re.IGNORECASE),
         "fix": "移除角落彩色高斯模糊光球，避免視覺雜訊。",
     },
     {
         "id": "SLOP-12",
-        "name": "無差別 rounded-2xl 圓角",
+        "name": "無差別大圓角 (rounded-xl/2xl/3xl Overuse)",
         "category": "元件與圓角",
-        "regex": re.compile(r"\brounded-2xl\b|\brounded-3xl\b", re.IGNORECASE),
+        "regex": re.compile(r"\brounded-(?:xl|2xl|3xl)\b|border-radius:\s*(?:1[6-9]|2\d)px", re.IGNORECASE),
         "threshold": 4,  # If used indiscriminately on buttons, cards and containers
-        "fix": "建立圓角階層 (按鈕 4px / 卡片 8px / 容器 0px)，或全頁採 0px 銳利工藝風。",
+        "fix": "建立 0-Card 開放式畫布 (0px 直角) 或嚴格圓角階層 (按鈕 4px / 卡片 8px / 外層 0px)。",
     },
     {
         "id": "SLOP-13",
@@ -132,6 +139,46 @@ SLOP_PATTERNS = [
         "category": "版面與序列",
         "regex": re.compile(r"<section[^>]*\b(?:py-12|py-16|py-20)\b", re.IGNORECASE),
         "fix": "主要 Section 垂直留白拉大至 py-36 或 py-40 (≥ 160px)。",
+    },
+    {
+        "id": "SLOP-17",
+        "name": "Emoji 裝飾標籤藥丸海 (Emoji-stuffed Pill Badges)",
+        "category": "裝飾與佔位",
+        "regex": re.compile(
+            r"(?:rounded-full|rounded-md|badge)[^>]*>(?:[^<]*(?:💻|🎨|⚡|🤖|☕|🚀|👋|🔥|✨|💡|📱|🛠️|📈))",
+            re.IGNORECASE,
+        ),
+        "fix": "刪除純裝飾性 Emoji 藥丸膠囊，改用極簡純文字清單或 1px 細線隔開的條目列表。",
+    },
+    {
+        "id": "SLOP-18",
+        "name": "全頁卡片堆疊容器病 (Card-in-Card Nesting)",
+        "category": "版面與序列",
+        "regex": re.compile(
+            r"(?:bg-white|bg-card|bg-neutral-50)[^>]*(?:rounded|shadow)[^>]*>[^<]*<div[^>]*(?:bg-white|bg-card|bg-neutral-50)[^>]*(?:rounded|shadow)",
+            re.IGNORECASE,
+        ),
+        "fix": "落實 0-Card 開放式畫布：取消白底圓角陰影盒子，直接坐在底色上，以 1px hairline 分割。",
+    },
+    {
+        "id": "SLOP-19",
+        "name": "裝飾性偽狀態指示器 (Decorative Pseudo-Status Badges)",
+        "category": "裝飾與佔位",
+        "regex": re.compile(
+            r"(?:🟢|bg-green-500|bg-emerald-500)[^>]*(?:探索新機會|Available for work|Open to work|求職中|接案中|Live|Active|Instant|Status)",
+            re.IGNORECASE,
+        ),
+        "fix": "移除無實際後端狀態綁定的偽狀態綠點膠囊；若需說明業務狀態，以一般字級內文自然陳述。",
+    },
+    {
+        "id": "SLOP-20",
+        "name": "AI 萬用樣板套話文案 (Formulaic AI Boilerplate Copy)",
+        "category": "文案與功能",
+        "regex": re.compile(
+            r"(?:👋\s*嗨[，,]我是|熱衷於打造優雅|在技術與美感之間找到|打造極佳使用者體驗|打造新一代使用者體驗|passionate about crafting (?:beautiful|intuitive|delightful))",
+            re.IGNORECASE,
+        ),
+        "fix": "禁止萬用模板空話，第一句直接陳述具體功能、業務事實或實際解決的工程/產品問題。",
     },
 ]
 
