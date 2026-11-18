@@ -1,0 +1,68 @@
+# 前端去 AI 味快速檢核與評分清單 (Checklist)
+
+本清單用於在產出前後快速掃描介面，以客觀量化指標評估頁面的「AI 味」殘留程度，並提供立即可用的替換方案。
+
+---
+
+## 1. 16 項標誌性特徵評分矩陣 (Slop Scorecard)
+
+針對目標頁面進行逐項檢視，計算命中數量：
+
+| 編號 | 檢核項目 (特徵標誌) | 命中 (1分) / 未命中 (0分) | 違規樣式範例 |
+| --- | --- | :---: | --- |
+| 1 | **紫藍漸層**：按鈕或背景套用 violet-to-indigo 多段漸層 | [ ] | `from-violet-600 via-purple-600 to-indigo-700` |
+| 2 | **預設字體**：未特別指定字體，直接落入 Inter 或 Roboto | [ ] | `font-family: 'Inter', sans-serif;` |
+| 3 | **次高備案滑落**：使用第二常見公版字體 Space Grotesk | [ ] | `font-family: 'Space Grotesk', sans-serif;` |
+| 4 | **全頁置中**：副標題、條目內文與說明皆套用 text-center | [ ] | `text-center mx-auto` |
+| 5 | **等寬三欄卡片**：功能區以三張均等卡片並排呈現 | [ ] | `grid-cols-1 md:grid-cols-3` |
+| 6 | **圓圈打勾圖示**：清單項目使用淺綠/淺紫底色圓圈包覆打勾 | [ ] | `bg-emerald-500/10 text-emerald-500 rounded-full p-2` |
+| 7 | **懸浮儀表板截圖**：Hero 下方擺放帶外發光的斜角 UI 假截圖 | [ ] | `rotate-[-6deg] shadow-2xl shadow-purple-500/20` |
+| 8 | **頂部小膠囊標籤**：大標題上方頂著固定樣式的 Pill Badge | [ ] | `rounded-full border border-purple-500/30 px-3 py-1` |
+| 9 | **滿版毛玻璃**：Navbar 與卡片泛濫套用 backdrop-blur | [ ] | `backdrop-blur-md bg-white/70` |
+| 10 | **點陣/格線背景**：背景布滿均勻等距的網格或微弱圓點 | [ ] | `bg-[radial-gradient(#e5e7eb_1px,transparent_1px)]` |
+| 11 | **模糊霓虹光球**：深色背景散落數個高斯模糊彩色 Blob | [ ] | `blur-3xl bg-indigo-500/20 rounded-full w-96 h-96` |
+| 12 | **無差別 rounded-2xl**：按鈕、卡片、輸入框全數套用 16px 圓角 | [ ] | `rounded-2xl` 全站泛濫 |
+| 13 | **五星假評價與幾何頭像**：客戶推薦放置 5 顆黃星與幾何頭像 | [ ] | 琥珀色 Star 圖示 × 5 + DiceBear 抽象圖 |
+| 14 | **萬用模板文案**：使用「Unlock the power of...」等空洞標語 | [ ] | 「簡單、快速、強大」、「打造新一代工作流」 |
+| 15 | **缺乏真實表單狀態**：無 focus 框、無必填星號、無行內驗證 | [ ] | 靜態 `<input>`，無 `:focus-visible` 與錯誤文字 |
+| 16 | **扁平字級跳躍比**：標題與內文字級比 < 2.0，且主標題硬套 700 粗體 | [ ] | 大標 32px 粗體配內文 16px（跳躍比僅 2.0） |
+
+### 評分級距與處置原則
+
+- **0–1 分：乾淨無痕跡 (Clean)**
+  - 介面具備鮮明品牌個性、版面張力與充裕留白。准予交付。
+- **2–3 分：中度 AI 味 (Mild AI Slop)**
+  - 存在部分套路（如局部漸層或等寬卡片）。必須執行**定向去 AI 味**重構，修正違規樣式。
+- **4 分以上：重度 AI 味 (Heavy AI Slop)**
+  - 頁面充斥標準公版特徵，品牌辨識度極低。必須立即**暫停產出，依據 `DESIGN.md` 與負向黑名單進行結構性重構**。
+
+---
+
+## 2. 人類設計師審查 10 問 (Ten Critique Questions)
+
+在審查任何介面草稿或程式碼時，主動提出以下 10 個批判性質疑：
+
+1. **Logo 遮蔽測試**：如果把 Logo 遮住，訪客能分辨這是你公司的產品，還是又一個 YC 週末 Side Project？
+2. **字級張力**：主標題看起來是大器優雅，還是因為尺寸不夠大而只能靠 `font-bold`（700）硬撐？
+3. **留白節奏**：桌面端區塊垂直內距是否達到 `160px`？使用者滾動時是否有足夠的視覺呼吸空間？
+4. **色彩克制**：全頁是否守住「最多 3 個強調色、各色出現不超過 3 次」的預算限制？
+5. **對齊張力**：內文與說明段落是否一律靠左對齊？是否徹底杜絕了全頁 `text-center`？
+6. **版面多樣性**：是否連續兩個區塊都使用了圖示卡片？能否將其中一區重構為不對稱圖文或開放式表格？
+7. **組件幾何**：按鈕、輸入框與外層卡片是否具備差異化的圓角尺寸？
+8. **文案真實度**：標題與副標題是否講述具體的功能細節與數字，而非「Unlock the future」等空話？
+9. **社會證明真實度**：引文是否來自真實使用者？若無真實素材，是否已果斷刪除假星星與抽象頭像？
+10. **無障礙與鍵盤互動**：按 Tab 鍵巡覽時，每個按鈕與輸入框是否有醒目的焦點環？表單出錯時是否有清楚的紅字錯誤提示？
+
+---
+
+## 3. 快速修復速查表 (Quick-Fix Cheat Sheet)
+
+| 常見 AI Slop 寫法 | 立即替換方案 (Tailwind / CSS) | 預期改進效果 |
+| --- | --- | --- |
+| `bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-2xl` | `bg-neutral-900 text-white rounded-sm hover:bg-neutral-800` | 消除廉價漸層，回歸俐落經典工藝感 |
+| `text-center max-w-2xl mx-auto` (用於全頁段落) | `text-left max-w-prose` (靠左對齊，限制閱讀長度約 65 字元) | 大幅提升長文易讀性與專業編輯感 |
+| `py-16 md:py-20` (約 64–80px) | `py-32 md:py-44` (約 128–176px，桌面端維持 160px+) | 徹底消除擁擠模板感，創造大器留白 |
+| `font-bold text-3xl md:text-4xl` (36px, 700 weight) | `font-medium text-4xl md:text-6xl tracking-tight` (56px+, 500 weight) | 靠尺寸拉開層級，告別笨重粗體 |
+| `grid grid-cols-1 md:grid-cols-3 gap-8` (等寬三卡片) | `grid grid-cols-1 md:grid-cols-12 gap-8` (左 5 欄標題導引、右 7 欄交錯項目) | 破除僵化模板，建立不對稱視覺張力 |
+| `bg-emerald-500/10 text-emerald-500 rounded-full p-2` 包覆 Checkmark | 直接保留純文字列表，或僅以 `1px` 細線分隔項目；去除裝飾圓圈 | 消除「未完成草稿」套路，版面回歸清爽 |
+| `focus:outline-none` (粗暴移除焦點樣式) | `focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-neutral-900` | 符合 WCAG 無障礙標準，鍵盤操作友善 |

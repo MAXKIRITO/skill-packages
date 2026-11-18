@@ -1,6 +1,6 @@
 # 開發與診斷 Skills
 
-一組可跨專案使用的開發工作流程，協助維護人與 AI 共用的專案摘要及開發要求、定位程式，以及檢查跨端契約、多語系、時序圖表、MQTT 資料流與資料庫 migration。
+一組可跨專案使用的開發工作流程，協助維護人與 AI 共用的專案摘要及開發要求、定位程式，以及檢查跨端契約、多語系、時序圖表、MQTT 資料流、資料庫 migration，並消除前端介面生成之「AI 味」（AI Slop）與統計平均值收斂。
 
 主要目標是減少不必要的文件閱讀、搜尋與重複分析，同時保留判斷所需的證據及驗證。各 skill 不限定特定框架或專案目錄，可分別安裝，也可一起使用。
 
@@ -8,7 +8,7 @@ PS.我只是把我平常做的事情和一些東東弄成skill方便我偷懶，
 
 ## Skills 清單
 
-本安裝包包含以下九個 skills：
+本安裝包包含以下十個 skills：
 
 | Skill | 解決什麼問題 | 主要檢查內容 |
 | --- | --- | --- |
@@ -21,8 +21,9 @@ PS.我只是把我平常做的事情和一些東東弄成skill方便我偷懶，
 | [cve-root-cause-review](skills/cve-root-cause-review/SKILL.md) | 將 CVE 研究轉成根因審查與可反證測試 | 55 項檢查、來源頁碼、適用性、證據與修補複測 |
 | [migration-review](skills/migration-review/SKILL.md) | schema 升級不相容、交易不完整、重跑或失敗恢復不明確 | 舊資料、constraint、runner、metadata、鎖、部署順序與回復方案 |
 | [multi-agent-coordination](skills/multi-agent-coordination/SKILL.md) | 面臨海量長文檔、跨專案／多 Repo 邊界，或需對抗審查確定需求 | 派發門檻、拓撲選型（平行分讀／跨庫隔離／對抗辯論）、派工簡報、反證收斂與生命週期清理 |
+| [frontend-anti-slop](skills/frontend-anti-slop/SKILL.md) | 前端與 UI 生成千篇一律、充滿「AI 味」（AI Slop）與統計平均值收斂 | 持久化 DESIGN.md、負向黑名單、排版張力、色彩與動效預算、參考混血、內容優先與雙重審查閉環 |
 
-只有 `i18n-check` 附帶執行腳本，其餘以工作流程與檢查規範為主。安裝 skill 不會啟動專案服務或執行檢查。
+只有 `i18n-check` 與 `frontend-anti-slop` 附帶執行腳本，其餘以工作流程與檢查規範為主。安裝 skill 不會啟動專案服務或執行檢查。
 
 ## 快速安裝
 
@@ -30,7 +31,7 @@ PS.我只是把我平常做的事情和一些東東弄成skill方便我偷懶，
 
 ### 從本機資料夾安裝
 
-在這個 README 所在的資料夾執行，將九個 skills 安裝給 Codex 跨專案使用：
+在這個 README 所在的資料夾執行，將十個 skills 安裝給 Codex 跨專案使用：
 
 ```sh
 npx skills add . --skill '*' -g -a codex
@@ -93,6 +94,7 @@ Agent 也可依任務與 skill 描述選用適合的流程。通常先選最貼�
 | 裝置資料 | `$mqtt-dataflow-check 依現有來源與 log，找出訊息在哪一段中斷。` |
 | Migration | `$migration-review 審查這次 migration 的舊資料相容性與失敗恢復，先不連資料庫。` |
 | 多 Agent 協同 | `$multi-agent-coordination 評估是否啟動多 Agent 研讀這三份架構規格，並對抗討論確定資料流需求。` |
+| 前端去 AI 味 | `$frontend-anti-slop 審查目前著陸頁的 UI 特徵，依據負向黑名單與排版張力規範進行去平均值重構。` |
 
 提供已知檔案、錯誤、時間區間、預期行為或 diff，通常能更快縮小範圍。不需要一開始提供整個專案或完整 log；避免貼入憑證、token 或真實個資。
 
