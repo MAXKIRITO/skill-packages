@@ -1,120 +1,238 @@
-# 前端去 AI 味實戰操作手冊 (Procedure)
+# 前端去 AI 味與頂級視覺工藝實戰操作手冊 (Procedure)
 
-本手冊提供在前端開發與介面生成過程中，從根源改寫模型搜尋空間、消除「AI 味」（AI Slop）的具體操作規格、提示詞範本與工程規範。
+本手冊提供在前端開發與介面生成過程中，從根源改寫模型搜尋空間、消除「AI 味」（AI Slop）與「過度禁慾論文風」的具體操作規格、設計諮詢矩陣、工藝方法代碼庫與工程規範。
 
 ---
 
-## 1. 設計資產盤點、多流派庫與持久化規格（`DESIGN.md`）
+## 1. 設計資產盤點、高槓桿諮詢矩陣與八大先鋒流派庫
 
-為了杜絕「每次生成都長得一模一樣」或退回預設公版，UI 生成必須遵循**「設計資產優先 $\rightarrow$ 無文件時主動引導 $\rightarrow$ 六大流派動態配對」**的原則，並錨定於專案根目錄的 `DESIGN.md`。
+為了杜絕「每次生成都長得一模一樣」或退回預設公版（不論是 Tailwind 紫藍漸層，或是暖白底加陶土紅的乾癟學術論文），UI 生成必須遵循**「設計資產優先 $\rightarrow$ 無文件時高槓桿諮詢 $\rightarrow$ 八大先鋒流派動態配對 $\rightarrow$ 注入 6 項實體工藝」**的原則，並錨定於專案根目錄的 `DESIGN.md`。
 
-### 1.1 設計資產盤點與使用者意圖引導流程
+### 1.1 設計資產盤點與 3 維度設計諮詢流程
 
-1. **第一步：搜尋現有設計資產**
-   - 檢查專案是否具備：`DESIGN.md`、`design-tokens.json`、`tailwind.config.*`、`src/theme/` 或全域 CSS 變數。
-   - 若存在：**無條件繼承專案已有之色票與規範**，直接載入為生成基準。
-2. **第二步：無文件時的主動提示與引導**
-   - 若專案無任何設計文件，且使用者未指定風格，**在回覆開頭主動提示使用者**：
-     > 「💡 檢測到專案目前尚未配置設計系統文件（DESIGN.md）。若您有特定品牌規範或參考網址，歡迎直接提供；若無，我將自以下六大去平均值流派中，依本專案業務屬性為您動態匹配最適風格（例如開發工具推薦 Technical Utilitarian、內容刊物推薦 Editorial Print）。」
+1. **第一步：搜尋現有設計工程資產**
+   - 檢查專案是否具備：`DESIGN.md`、`design-tokens.json`、`tailwind.config.*`、`src/theme/`、Figma Tokens 或全域 CSS 變數。
+   - 若存在：**無條件繼承專案已有之色票、字體與規範**，直接載入為生成基準。
+2. **第二步：無文件時的主動高槓桿設計諮詢**
+   - 若專案無任何設計文件，且使用者未指定風格，**在回覆開頭主動提供「設計諮詢選擇卡」**：
+     > 「💡 檢測到專案目前尚未配置設計系統文件（DESIGN.md）。為打造具備品牌識別度與實體工藝感的介面，請確認以下 3 個維度的取向（或由我依業務屬性為您推導最適配型）：
+     > 1. **物料質感 (Materiality)**：`[A]` 工業硬體儀器 (Teenage Engineering) / `[B]` 晶體黑曜石高光 (Linear) / `[C]` 現代紙質微噪點 / `[D]` 前衛波普新粗獷 / `[E]` 東方極簡禪境
+     > 2. **空間張力 (Spatial Dynamics)**：`[A]` 高密終端資料流 / `[B]` 破格層疊與外溢 / `[C]` 劇院式大器留白
+     > 3. **互動態度 (Interaction)**：`[A]` 實體按壓物理阻尼 / `[B]` 精密磁吸光澤 / `[C]` 即時遙測脈衝燈」
 3. **第三步：持久化至 `DESIGN.md`**
    - 將確認之設計規範寫入專案根目錄 `DESIGN.md`，杜絕長對話中的上下文稀釋。
 
 ---
 
-### 1.2 六大去平均值正向流派完整代碼配方
+### 1.2 八大先鋒設計流派完整代碼配方
 
-當專案無既有規範時，自以下六個流派中動態選型：
+當專案無既有規範時，自以下八個性格極度鮮明的流派中動態選型：
 
-#### 流派 1：編輯工藝風 (Editorial Print)
-- **氣質**：深度閱讀、人文智庫、精品文化、權威發表
-- **色票**：`--paper: #F5F4F0; --ink: #141413; --ink-mute: #5C5B56; --accent: #B84A2E;`
-- **字體**：`font-serif: 'Noto Serif TC', serif; font-sans: 'Plus Jakarta Sans', sans-serif;`
-- **幾何**：全部 `0px` 直角，1px 細線分割。
-- **按鈕語言**：0px 直角黑底白字，或經典加粗底線文字按鈕。
+#### 流派 1：工業硬體儀器風 (Industrial Hardware / Teenage Engineering)
+- **氣質**：合成器、硬體終端、精密設備、音訊工程、極客硬體控制台
+- **色票**：`--paper: #E5E5E2; --ink: #1C1D1F; --ink-mute: #68696B; --accent: #FF5500; --hairline: #1C1D1F;`
+- **字體**：`font-display: 'JetBrains Mono', monospace; font-sans: 'IBM Plex Sans', sans-serif;`
+- **物料與幾何**：消光塑料面板、段碼 LED、刻度滾輪、純黑 1px 實線、機械微開關。
+- **按鈕語言**：實體機械按鍵（`active:translate-y-1 shadow-[0_3px_0_#1C1D1F]`）。
 
-#### 流派 2：技術工藝風 (Technical Utilitarian)
-- **氣質**：開發者平台、基礎設施、雲端監控、資料科學、工程終端
-- **色票**：`--paper: #F8FAFC; --ink: #0F172A; --ink-mute: #64748B; --accent: #0284C7; /* 或琥珀 #D97706 */`
-- **字體**：`font-display: 'IBM Plex Sans', sans-serif; font-mono: 'JetBrains Mono', monospace;`
-- **幾何**：2px 緊湊微圓角 (`rounded-sm`)，密集高對比表格。
-- **按鈕語言**：1px 實線深色線框按鈕，懸停反白填滿。
-
-#### 流派 3：北歐溫潤風 (Warm Scandinavian)
-- **氣質**：生活風格、永續環保、身心健康、教育人文、溫暖社群
-- **色票**：`--paper: #F7F5F0; --ink: #1C2E24; --ink-mute: #4D6153; --accent: #5B7065;`
-- **字體**：`font-serif: 'Newsreader', serif; font-sans: 'Satoshi', sans-serif;`
-- **幾何**：4–6px 溫潤微弧度 (`rounded-md`)，大面積自然大地色塊。
-- **按鈕語言**：深林墨綠微圓角填色鈕，觸感沉穩自然。
-
-#### 流派 4：瑞士國際網格風 (Swiss International Grid)
-- **氣質**：現代建築、B2B SaaS、設計工具、前衛出版
-- **色票**：`--paper: #FFFFFF; --ink: #111827; --ink-mute: #4B5563; --accent: #E11D48;`
-- **字體**：`font-sans: 'General Sans', sans-serif; font-mono: 'Space Mono', monospace;`
-- **幾何**：0px 絕對直角，嚴格非對稱數學網格，純黑白高反差。
-- **按鈕語言**：純黑幾何色塊鈕，懸停切換為瑞士朱紅，零陰影。
-
-#### 流派 5：新粗獷主義 (Neo-Brutalist Monochromatic)
-- **氣質**：前沿科技、獨立開發者社群、Web3、青年創意品牌
-- **色票**：`--paper: #FFFFFF; --ink: #000000; --hairline: #000000; --accent: #1D4ED8;`
-- **字體**：`font-display: 'Syne', sans-serif; font-mono: 'JetBrains Mono', monospace;`
-- **幾何**：0px 直角，2px 粗黑邊框，實體硬陰影。
-- **按鈕語言**：粗黑邊框配 3px 實黑位移陰影 (`shadow-[3px_3px_0px_#000]`)，點擊時微位移。
-
-#### 流派 6：沉浸暗調奢華 (Dark Minimalist Luxury)
-- **氣質**：夜間專業儀表板、資安防護、高階音訊設備、AI 實驗室
-- **色票**：`--paper: #0C0D0E; --ink: #E2E4E9; --ink-mute: #8B909A; --accent: #C5A880;`
+#### 流派 2：晶體黑曜石高光 (Layered Obsidian & Specular Glass / Linear & Raycast)
+- **氣質**：專業開發者工具、高階資安平台、現代生產力應用、新一代 AI 引擎
+- **色票**：`--paper: #090A0F; --surface: #12131A; --ink: #F1F3F7; --ink-mute: #717684; --accent: #6366F1;`
 - **字體**：`font-sans: 'Plus Jakarta Sans', sans-serif; font-mono: 'JetBrains Mono', monospace;`
-- **幾何**：0px 或 4px，低透明度表面，1px 幽微邊框。
-- **按鈕語言**：深灰半透明細框按鈕，懸停微亮，杜絕廉價霓虹發光。
+- **物料與幾何**：多層黑曜石色階、頂部 1px 內切光學高光 (`box-shadow: inset 0 1px 0 rgba(255,255,255,0.12)`)、結晶微光邊框。
+- **按鈕語言**：半透明晶體細框鈕，懸停微反光。
+
+#### 流派 3：前衛波普新粗獷 (Neo-Brutalist Pop / ReadCV & Gumroad)
+- **氣質**：青年創意社群、獨立開發者、Web3、前沿設計機構、個人旗艦作品
+- **色票**：`--paper: #FEF9EF; --ink: #000000; --hairline: #000000; --accent: #2563EB; --accent-2: #FACC15;`
+- **字體**：`font-display: 'Syne', sans-serif; font-mono: 'Space Grotesk', monospace;`
+- **物料與幾何**：2.5px 粗黑輪廓、實黑 4px 位移硬陰影、微傾斜貼紙徽章 (`transform: rotate(-2deg)`)。
+- **按鈕語言**：粗黑邊框配實黑位移陰影（點擊時位移消除陰影）。
+
+#### 流派 4：現代高奢動態雜誌 (High-Fashion Contemporary Editorial)
+- **氣質**：旗艦精品發表、頂級建築與室內設計、文化藝術策展、高階沙龍
+- **色票**：`--paper: #0E0E10; --ink: #F5F5F7; --ink-mute: #8E8E93; --accent: #D4AF37;`（亦可為純白反轉）
+- **字體**：`font-serif: 'Playfair Display', serif; font-sans: 'General Sans', sans-serif;`
+- **物料與幾何**：巨幅襯線大字、全幅攝影邊緣外溢、同句斜體混搭、不對稱跨欄裁剪。
+- **按鈕語言**：純文字加粗底線箭頭按鈕，懸停時箭頭右移。
+
+#### 流派 5：科技終端數據流 (Bloomberg HUD & Technical Telemetry)
+- **氣質**：金融高頻交易、即時遙測雲端監控、網路安全獵殺、資料管線儀表
+- **色票**：`--paper: #0A0E14; --ink: #B3C0D1; --ink-mute: #4E5A6B; --accent: #00F0FF; --accent-warn: #FFB454;`
+- **字體**：`font-mono: 'JetBrains Mono', monospace; font-sans: 'IBM Plex Sans', sans-serif;`
+- **物料與幾何**：全頁 Mono 驅動、緊湊雙層標籤、ASCII 邊框、即時呼吸脈衝小燈、零浪費空間。
+- **按鈕語言**：終端微型線框鈕 (`[ EXECUTE ]`)，懸停翻轉為青光填滿。
+
+#### 流派 6：東方極簡禪境 (Japanese Ma & Wabi-Sabi / MUJI & 原研哉)
+- **氣質**：生活哲學、文化展演、冥想音訊、東方茶道與極致慢生活
+- **色票**：`--paper: #F4F2EB; --ink: #222421; --ink-mute: #6C7069; --accent: #C23E2B;`
+- **字體**：`font-serif: 'Zen Old Mincho' / 'Noto Serif TC', serif; font-sans: 'Noto Sans TC', sans-serif;`
+- **物料與幾何**：極限「間」留白、極細纖維線條、手工朱印落款徽章、垂直排版標籤 (`writing-mode: vertical-rl`)。
+- **按鈕語言**：極致微弱灰色底色塊，配深墨色沉穩文字。
+
+#### 流派 7：瑞士國際現代網格 (Swiss International Grid / Otl Aicher)
+- **氣質**：現代建築、B2B SaaS 核心基礎架構、設計系統工具、先鋒出版
+- **色票**：`--paper: #FFFFFF; --ink: #0A0A0A; --ink-mute: #52525B; --accent: #DC2626;`
+- **字體**：`font-sans: 'General Sans', sans-serif; font-mono: 'Space Mono', monospace;`
+- **物料與幾何**：嚴格非對稱數學網格比例、冷黑白絕對高反差、0px 銳利直角純平幾何塊。
+- **按鈕語言**：純黑幾何色塊鈕，懸停切換為瑞士國旗鮮紅，零陰影。
+
+#### 流派 8：北歐溫潤工藝 (Warm Scandinavian Craft)
+- **氣質**：永續生活、環保材料、身心健康、教育與自然社群
+- **色票**：`--paper: #F5F3ED; --ink: #18291F; --ink-mute: #4D6153; --accent: #65796D;`
+- **字體**：`font-serif: 'Newsreader', serif; font-sans: 'Satoshi', sans-serif;`
+- **物料與幾何**：微噪點紙質鋪底、4–6px 溫潤微弧度 (`rounded-md`)、低彩度有機自然色塊。
+- **按鈕語言**：深苔蘚綠微圓角填色鈕，觸感沉穩自然。
 
 ---
 
-### 1.3 五大非 AI 公版按鈕設計語言庫
+### 1.3 人類頂級設計師的 6 項實體工藝方法代碼庫 (Craft Code Recipes)
+
+為徹底打破「純文字枯萎論文感」，介面生成中應積極注入以下工藝組件：
+
+#### 1. 微噪點物料層 (Organic Noise Overlay)
+```html
+<!-- 全域微噪點物料層：消除數位生硬感，賦予有機物料質地 -->
+<div class="fixed inset-0 pointer-events-none z-50 opacity-[0.035] mix-blend-overlay"
+     style="background-image: url('data:image/svg+xml;utf8,<svg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"><filter id=\"n\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.8\" numOctaves=\"3\" stitchTiles=\"stitch\"/></filter><rect width=\"100%\" height=\"100%\" filter=\"url(%23n)\"/></svg>');">
+</div>
+```
+
+#### 2. 頂部 1px 內切光學高光 (Specular Inset Highlights)
+```html
+<!-- 模擬物理研磨玻璃與金屬倒角：頂部 1px 內切光澤 + 低瀰散物理陰影 -->
+<div class="bg-[#12131A] text-[#F1F3F7] p-8 rounded-lg border border-white/10"
+     style="box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 20px 40px -15px rgba(0, 0, 0, 0.6);">
+  <span class="font-mono text-xs text-[#6366F1] uppercase tracking-wider">// Specular Edge</span>
+  <h3 class="text-xl font-medium mt-2">精密結晶容器</h3>
+</div>
+```
+
+#### 3. 複合混搭排版與浮水印 (Mixed Typography & Typographic Watermark)
+```html
+<!-- 標題同句混搭 + 巨幅幾何背景浮水印 -->
+<div class="relative overflow-hidden py-16">
+  <!-- 巨幅裝飾浮水印 -->
+  <span class="absolute -right-8 -bottom-12 font-mono text-[140px] font-bold text-black/[0.03] select-none pointer-events-none leading-none">
+    01
+  </span>
+
+  <!-- 複合混搭標題：Grotesk 無襯線中刻意嵌入 Italic Serif -->
+  <h2 class="text-4xl md:text-5xl font-sans tracking-tight leading-tight">
+    Engineering <span class="font-serif italic font-normal text-[#2563EB]">fault-tolerant</span> architectures for scale.
+  </h2>
+  
+  <!-- 側邊垂直排版時間戳記 -->
+  <div class="hidden md:block absolute left-0 top-16 text-xs font-mono text-neutral-400 select-none" style="writing-mode: vertical-rl;">
+    REV 2026.11 // SYSTEM SPEC
+  </div>
+</div>
+```
+
+#### 4. 破格與非對稱縱深 (Breaking the Grid & Pinned Rail)
+```html
+<!-- 黏性側欄導覽 + 右側獨立滑動 + 跨區塊層疊覆蓋 -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12 relative">
+  <!-- 左側 4 欄黏性錨定 -->
+  <aside class="md:col-span-4 md:sticky md:top-24 self-start">
+    <div class="font-mono text-xs uppercase tracking-widest text-[#FF5500] mb-2">[ TELEMETRY RAIL ]</div>
+    <h3 class="text-2xl font-bold tracking-tight">即時節點遙測</h3>
+    <p class="text-sm text-neutral-500 mt-4 leading-relaxed">左側固定指標與狀態，右側持續滾動詳細日誌。</p>
+  </aside>
+
+  <!-- 右側 8 欄主滾動區 -->
+  <div class="md:col-span-8 space-y-16">
+    <!-- 跨區塊層疊浮動晶片 (負邊距製造縱深) -->
+    <div class="-mt-8 md:-ml-8 bg-[#E5E5E2] border-2 border-black p-4 z-10 relative shadow-[4px_4px_0_#000]">
+      <span class="font-mono text-xs font-bold uppercase">✦ Active Pipeline: Node-04 Online</span>
+    </div>
+    
+    <!-- 正常內容清單 -->
+    <div class="border-t border-black/20 pt-8">
+      <p class="text-base leading-relaxed">長篇業務細節與技術規範在此流暢呈現...</p>
+    </div>
+  </div>
+</div>
+```
+
+#### 5. 工藝細節標記與座標戳記 (Bespoke Engineered Signage)
+```html
+<!-- 工程結構標尺與呼吸燈 -->
+<div class="flex items-center justify-between border-t border-b border-black/20 py-2 font-mono text-xs text-neutral-500">
+  <div class="flex items-center gap-2">
+    <span class="relative flex h-2 w-2">
+      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+      <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+    </span>
+    <span>SYS.OK [ 10:42:01 UTC ]</span>
+  </div>
+  <span>+── 25.0330° N // 121.5654° E ──+</span>
+  <span class="hidden sm:inline">SCALE: 1:1</span>
+</div>
+```
+
+#### 6. 實體物理阻尼按鍵 (Tactile Physics Button)
+```html
+<!-- 具備真實下壓物理手感的按鍵 -->
+<button class="border-2 border-black bg-white text-black px-6 py-3 text-xs font-mono font-bold tracking-wider uppercase shadow-[3px_3px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all duration-75">
+  Deploy Core System
+</button>
+```
+
+---
+
+### 1.4 六大非 AI 公版按鈕設計語言庫
 
 嚴禁每次生成都輸出千篇一律的按鈕！依據選定之流派切換以下具備鮮明個性的按鈕形式：
 
 ```html
-<!-- 形式 A：工藝直角實心鈕 (Solid Minimalist - 適用 Editorial / Swiss) -->
-<button class="bg-[#141413] text-[#F5F4F0] px-6 py-3 text-xs font-mono uppercase tracking-widest rounded-none hover:bg-[#B84A2E] transition-colors">
-  探索系統規格 →
+<!-- 形式 A：機械實體下壓鈕 (Industrial Mechanical - 適用 Teenage Engineering) -->
+<button class="bg-[#FF5500] text-white border-2 border-[#1C1D1F] px-6 py-2.5 text-xs font-mono uppercase font-bold tracking-widest shadow-[0_3px_0_#1C1D1F] active:translate-y-[3px] active:shadow-none transition-all">
+  ENGAGE SWITCH →
 </button>
 
-<!-- 形式 B：雙線反轉線框鈕 (Invertible Outline - 適用 Technical Utilitarian) -->
+<!-- 形式 B：晶體半透高光鈕 (Specular Glass Inset - 適用 Linear / Raycast) -->
+<button class="bg-[#1A1D27] text-[#F1F3F7] border border-white/10 px-5 py-2.5 text-xs font-sans tracking-wide rounded-md hover:border-white/30 hover:bg-[#222634] transition-all"
+        style="box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);">
+  Launch Workspace
+</button>
+
+<!-- 形式 C：雙線反轉線框鈕 (Invertible Outline - 適用 Technical Utilitarian) -->
 <button class="border border-slate-900 bg-transparent text-slate-900 px-5 py-2.5 text-xs font-mono tracking-wider rounded-sm hover:bg-slate-900 hover:text-white transition-all">
   [ VIEW SOURCE ]
 </button>
 
-<!-- 形式 C：雜誌標題箭頭鈕 (Text Arrow / Underlined - 適用 Editorial / Luxury) -->
-<a href="#" class="inline-flex items-center gap-2 text-sm font-serif border-b border-[#141413] pb-1 hover:border-[#B84A2E] hover:text-[#B84A2E] transition-colors">
-  <span>深入研讀架構白皮書</span>
-  <span class="font-mono text-xs">→</span>
+<!-- 形式 D：雜誌標題箭頭鈕 (Text Arrow / Underlined - 適用 High-Fashion / Editorial) -->
+<a href="#" class="inline-flex items-center gap-2 text-sm font-serif border-b border-[#141413] pb-1 hover:border-[#D4AF37] hover:text-[#D4AF37] transition-colors group">
+  <span>探索架構白皮書</span>
+  <span class="font-mono text-xs transition-transform group-hover:translate-x-1">→</span>
 </a>
 
-<!-- 形式 D：實體硬陰影撞色鈕 (Hard-Shadow Neo-Brutalist - 適用 Neo-Brutalist) -->
-<button class="border-2 border-black bg-white text-black px-6 py-2.5 text-xs font-mono uppercase font-bold tracking-wider shadow-[3px_3px_0px_#000] hover:bg-[#1D4ED8] hover:text-white active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">
+<!-- 形式 E：實體硬陰影撞色鈕 (Hard-Shadow Neo-Brutalist - 適用 Neo-Brutalist) -->
+<button class="border-2 border-black bg-white text-black px-6 py-2.5 text-xs font-mono uppercase font-bold tracking-wider shadow-[3px_3px_0px_#000] hover:bg-[#2563EB] hover:text-white active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">
   Deploy Cluster
 </button>
 
-<!-- 形式 E：溫潤低飽和微弧度鈕 (Soft Warm Pill - 適用 Warm Scandinavian) -->
-<button class="bg-[#1C2E24] text-[#F7F5F0] px-6 py-3 text-sm font-medium rounded-md hover:bg-[#2A4235] transition-colors">
+<!-- 形式 F：溫潤低飽和微弧度鈕 (Soft Warm Pill - 適用 Warm Scandinavian) -->
+<button class="bg-[#18291F] text-[#F5F3ED] px-6 py-3 text-sm font-medium rounded-md hover:bg-[#2A4235] transition-colors">
   開啟專案對話
 </button>
 ```
 
 ---
 
-### 1.4 `DESIGN.md` 標準持久化範本
+### 1.5 `DESIGN.md` 標準持久化範本
 
 ```markdown
 # 專案設計系統規範 (DESIGN SYSTEM CONSTRAINTS)
 
-本專案拒絕預設「AI 公版風格」（AI Slop）。所有介面產出必須嚴格遵守以下數值硬約束：
+本專案拒絕預設「AI 公版風格」（AI Slop）與「過度禁慾論文風」。所有介面產出必須嚴格遵守以下數值硬約束：
 
 ## 1. 字體與階層 (Typography)
 - 選定流派：[依據流派庫或專案資產填入]
-- 標題字體：`Noto Serif TC` / `Fraunces`（或專案指定字體）
-- 內文字體：`Plus Jakarta Sans` / `Newsreader`
-- 程式碼字體：`JetBrains Mono`, monospace
+- 標題字體：`Noto Serif TC` / `Fraunces` / `Playfair Display`（支援同句混搭 Italic Serif）
+- 內文字體：`Plus Jakarta Sans` / `IBM Plex Sans` / `Satoshi`
+- 程式碼/標記字體：`JetBrains Mono` / `Space Mono`
 - 嚴禁字體：禁止使用 `Inter`, `Roboto`, `Arial`，以及次高備案 `Space Grotesk`, `Poppins`, `Manrope`（除非新粗獷流派指定）。
 - 字級跳躍比 (Size Jump Ratio)：標題與內文字級比必須 ≥ 3.0 倍。
   - Hero Display: `clamp(40px, 4vw, 64px)`
@@ -122,32 +240,33 @@
   - Body Text: `16px` (1rem), line-height: 1.7
 - 字重約束 (Font Weight)：Display 最高 `500`（靠尺寸撐開氣場，嚴禁 700 粗體硬撐）。
 
-## 2. 色彩預算 (Color Budget & OKLCH)
+## 2. 色彩預算與物料質感 (Color & Materiality)
 - 預算上限：全頁最多 3 個強調色；每個強調色整頁最多出現 3 次（全頁總強調點 ≤ 9 個）。
 - 基準色票 (採用 OKLCH / CSS 變數)：
   - `--paper`: [依流派選用之底色]
   - `--ink`: [依流派選用之主文字色]
   - `--hairline`: [依流派選用之細線分割色]
   - `--accent`: [依流派選用之單一強調色]
+- 物料工藝：[微噪點 SVG 紋理 / 頂部 1px 內切光學高光 / 消光塑料 / 實黑位移陰影 / 純平紙質]
 - 漸層禁令：嚴禁紫藍與紫粉多段高飽和漸層，嚴禁霓虹發光與滿版毛玻璃。
 
-## 3. 空間與留白 (Spacing & Layout)
+## 3. 空間與版面張力 (Spacing & Spatial Dynamics)
 - 區塊垂直內距 (Section Padding)：
   - 桌面端：`160px`（`py-40` / `10rem`）以上。
   - 行動端：`96px`（`py-24` / `6rem`）以上。
 - 版面結構：
   - 嚴禁全頁 `text-center` 置中。
   - 嚴禁均分三欄卡片網格（`grid-cols-3`）。
-  - 強制採用 0-Card 開放式畫布：以 `60/40 不對稱分割`、`交錯圖文列表` 或 `單一主視覺 Tab 切換`。
+  - 強制採用 0-Card 開放式畫布：以 `60/40 不對稱分割`、`破格層疊覆蓋`、`視窗外溢展示` 或 `黏性側欄滑動導覽 (Pinned Rail)`。
 
 ## 4. 按鈕與組件幾何
-- 按鈕形式：[工藝直角實心 / 線框反轉 / 標題箭頭 / 實體硬陰影 / 溫潤微弧度]
+- 按鈕形式：[機械實體下壓 / 晶體半透高光 / 線框反轉 / 雜誌標題箭頭 / 實體硬陰影 / 溫潤微弧度]
 - 嚴禁全頁按鈕與容器統一套用 `16px` (`rounded-2xl`)。
 ```
 
-### 1.5 在專案規則中持久化引用
+### 1.6 在專案規則中持久化引用
 
-在專案的 `CLAUDE.md`、`.cursorrules` 或 System Prompt 中加入：
+在專案規則檔（如專案根目錄規格說明、Prompt Rules 或系統設定）中加入：
 
 ```markdown
 <!-- 前端 UI 生成強制規則 -->
@@ -155,18 +274,19 @@
 產出之程式碼若包含 `DESIGN.md` 明令禁止之字體、色彩、三欄卡片或等距留白，視為嚴重格式違規。
 ```
 
-### 1.6 兩階段強制前置閘門與 0-Card 開放式排版實作
+### 1.7 兩階段強制前置閘門與 7 行合約
 
-在從零建立任何新介面時，模型必須先在輸出開頭寫下 `[設計合約鎖定]` 六行約定，再輸出代碼：
+在從零建立任何新介面時，模型必須先在輸出開頭寫下 `[設計合約鎖定]` 七行約定，再輸出代碼：
 
 ```plaintext
 [設計合約鎖定]
-- 流派與參考：Editorial Print（0-Card 開放式畫布，0px 直角工藝風）
-- 色彩表：底色 #F5F4F0 / 主墨 #141413 / 單一強調 #B84A2E（嚴禁任何多段漸層與光暈）
-- 字體與級距：Noto Serif TC (56px, weight 400) / Plus Jakarta Sans (16px, weight 400) -> 跳躍比 3.5x
-- 版面骨架：12 欄不對稱佈局，主要資訊錨定，區塊以 1px hairline 分割，內文一律靠左
-- 禁用確認：無白底圓角卡片堆疊、無 Emoji 標籤、無發光光環、無裝飾性偽狀態指示器
-- 文案真實度：無萬用空洞樣板句，第一句直接陳述具體功能、業務事實或實際數據
+- 設計資產來源：Industrial Hardware（消光塑料面板、機械按鍵手感、安全警示橘）
+- 色彩表：底色 #E5E5E2 / 主墨 #1C1D1F / 強調 #FF5500（嚴禁紫粉漸層與光暈）
+- 字體與級距：JetBrains Mono (56px, weight 500) / IBM Plex Sans (16px, weight 400) -> 3.5x（支援同句混搭）
+- 物料與質感：微噪點物料層 (Film Grain 3%) + 消光塑料實黑 1px 線條，無虛浮發光
+- 版面骨架與張力：0-Card 開放式畫布，左側 4 欄黏性遙測錨定，右側 8 欄主條目，段落間以工程標尺符號分割
+- 按鈕與互動語言：實體機械按鍵（shadow-[0_3px_0_#1C1D1F] active:translate-y-1）
+- 禁用確認：無白底圓角卡片堆疊、無 Emoji 標籤、無發光光環、無偽狀態綠點、無樣板套話、無單一暖白枯燥論文複讀
 ```
 
 #### 0-Card 開放式畫布通用代碼模式（對照白底卡片套路）
@@ -228,6 +348,7 @@
 <anti_slop_constraints>
 1. 禁止色彩與光影變種：
    - 嚴禁使用紫藍漸層 (violet-to-indigo) 及任何紫粉漸層 (pink/fuchsia/purple/rose)。
+   - 嚴禁千篇一律複讀單一暖白陶土色調（純暖白底 #F5F4F0 配陶土赭紅 #B84A2E，通篇無物料感無深度）。
    - 嚴禁頭像、圖標或容器外圍套上紫色/粉色發光圓環 (glowing rings)。
    - 嚴禁在深色模式套用亮青色 (Cyan) 霓虹發光，嚴禁背景散落高斯模糊彩色光球 (blur-2xl / blur-3xl blobs)。
    - 嚴禁點陣網格背景 (dot grid) 與滿版毛玻璃 (backdrop-blur)。
@@ -238,6 +359,7 @@
    - 嚴禁全頁 text-center 置中（大標題可置中，但副標、內文與說明一律靠左對齊）。
    - 嚴禁 grid-cols-3 等寬圖示卡片；嚴禁在項目旁放置藍底、黃底、紫底的淺色圓圈線條小圖示。
    - 嚴禁區塊垂直留白小於 120px（桌面端強制 ≥ 160px）。
+   - 嚴禁通篇死板遵循 12 欄且毫無層疊外溢的乾枯平面排版（缺乏深度與主次呼吸）。
 
 3. 裝飾性假元素與微元件禁令：
    - 嚴禁無功能意義的懸浮偽狀態指示器（如帶綠點的 🟢「探索新機會中/Available/Live/Active」等無實際狀態綁定的偽 Badge）。

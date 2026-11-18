@@ -6,7 +6,7 @@
 
 ## 1. 問題定義：什麼是「AI 味」？
 
-在現代前端工程與 Vibe Coding 實務中，所謂的「AI 味」，**絕非指程式碼有語法錯誤、排版跑版或無法響應式顯示**。相反地，AI 模型（如 Claude、Cursor、v0、Lovable、Bolt）生成的網頁通常具備無懈可擊的響應式斷點、流暢的過渡動畫與可點擊的按鈕。
+在現代前端工程與 Vibe Coding 實務中，所謂的「AI 味」，**絕非指程式碼有語法錯誤、排版跑版或無法響應式顯示**。相反地，現代自動化代碼生成工具產出的網頁通常具備無懈可擊的響應式斷點、流暢的過渡動畫與可點擊的按鈕。
 
 AI 味的核心本質在於：**「無品牌意圖的統計收斂」**（Statistical convergence devoid of brand intent）。
 
@@ -74,6 +74,10 @@ AI 介面的高度同質化並非設計師的主觀偏見，而是具備實證�
 18. **全頁卡片堆疊容器病 (Card-in-Card Nesting Overuse)**：全頁為水平置中的垂直白卡堆疊（大圓角白卡包多張小圓角白卡，外加微弱陰影），將所有資訊關進盒子裡，缺乏真正的開放式留白與版面層級。
 19. **裝飾性偽狀態指示器 (Decorative Pseudo-Status Badges)**：在頁面頂部或角標懸浮無實際後端狀態綁定的偽指示器（如「🟢 Available / Live / Active」膠囊），淪為無意義的公版起手式。
 20. **AI 萬用樣板套話文案 (Formulaic AI Slogans & Boilerplate Copy)**：文案充斥「熱衷於打造優雅、直覺且具備極佳體驗…」、「在技術與美感之間找到平衡」、「Unlock the power of...」、「簡單、快速、強大」等換成任何產品或人物都成立的無個性樣板。
+21. **過度禁慾的純文字＋極細線論文風 (Academic Essay Monoculture)**：矯枉過正地將全站所有視覺組件全部替換成純文字、襯線大標題與一條 1px 細線，整頁如同 Substack 電子報或未排版的論文報告，缺乏物料質感、無光學深度與產品層次。
+22. **千篇一律的暖紙白配陶土紅複讀 (Warm Paper + Terracotta Monoculture)**：每一次生成無論是什麼產品主題，背景一律是暖紙白（#F5F4F0）、文字一律是濃墨黑（#141413）、唯一強調色一律是陶土赭紅（#B84A2E），形成另一種無品牌靈魂的「單一枯燥公版收斂」。
+23. **缺乏物料質感與光學深度 (Lack of Materiality & Physical Depth)**：純向量扁平渲染，缺乏微噪點（Film Grain）、頂部 1px 內切光學高光（Specular Inset）、實體陰影位移等物理物料質感，呈現廉價的數位虛浮感。
+24. **死板的單層 12 欄平面排版 (Sterile Rigid Single-Layer Pipeline)**：所有元件死板待在 12 欄內部垂直串接，無邊緣外溢（Bleed-out）、無跨區塊層疊重疊（Overlapping）、無黏性側欄（Pinned Scrollytelling），缺乏空間張力與滾動探索慾望。
 
 ---
 
@@ -158,11 +162,11 @@ AI 介面的高度同質化並非設計師的主觀偏見，而是具備實證�
 
 1. **Developers Digest** — *AI Design Slop: 16 Patterns That Mark a Site as Vibe-Coded* (2026-04-22，含 Adrian Krebs 1,590 個 Show HN 著陸頁實證審查統計)。
 2. **Rottoways** — *Why do all AI websites look the same? 8 tells and the fix* (2026-11-05，深入探討 64–96px 留白限制與字重硬約束)。
-3. **prg.sh** — *Why Your AI Keeps Building the Same Purple Gradient Website* (2025-10-26，收錄 Adam Wathan Tailwind 創辦人致歉事件與 Anthropic Frontend Cookbook 指引)。
-4. **DEV Community / Google Developer Group** — *Why AI Websites All Look the Same and How to Build Something Different* (2026-08-29，內容優先與跨界排版實驗)。
+3. **prg.sh** — *Why Your AI Keeps Building the Same Purple Gradient Website* (2025-10-26，收錄 Adam Wathan Tailwind 創辦人致歉事件與前端設計工程最佳實踐指引)。
+4. **DEV Community / 開發者社群設計實證** — *Why AI Websites All Look the Same and How to Build Something Different* (2026-08-29，內容優先與跨界排版實驗)。
 5. **Noqode** — *AI slop design: 10 signs your website was made by AI* (2026-10-28，品牌辨識度歸零與同質化現象分析)。
-6. **ForeverWebs** — *Claude Code UI 太醜？7 個方法讓質感追上 Claude Design* (2026-04-30，OKLCH 色彩空間與專業信任度影響研究)。
-7. **Stackademic** — *14+ Ways to Turn Claude Code Into a Design Genius* (2026-06-01，探討次高機率滑落與維度隔離提示技術)。
+6. **ForeverWebs** — *前端 UI 品質躍升指南：7 個方法掌控色彩與真實質感* (2026-04-30，OKLCH 色彩空間與專業信任度影響研究)。
+7. **Stackademic** — *突破 AI 生成前端平庸性：14+ 種進階設計與提示工程實踐* (2026-06-01，探討次高機率滑落與維度隔離提示技術)。
 8. **STORYCODE 述碼方舟** — *為什麼有些網站一打開，就有一種「AI 味」？* (2026-09-03，視覺心理學與無品牌意圖收斂之探討)。
 9. **Homu Chen** — *Vibe Coding 擺脫 AI 味！我如何用「複製大法」做出高質感網站* (2025-12-07，參考驅動工作流程與藝術總監心法)。
 10. **925Studios** — *AI Slop Web Design: Complete Guide to Spotting and Fixing Generic Websites* (2026-03-19，去平均值實戰手冊)。

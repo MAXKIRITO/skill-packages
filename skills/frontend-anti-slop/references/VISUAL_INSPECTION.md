@@ -221,7 +221,7 @@ AI 模型在撰寫 CSS 與 Tailwind 時，極易產生「視覺幻覺」（Hallu
 - **優勢**：完全靜態化、免後端依賴、無 Token 過期問題，Agent 與開發者隨時可直接觀看並極速熱重載。
 
 ### 5.2 策略 B：人機協同登入 (Human-in-the-Loop Auth Session)
-- **核心思維**：若系統包含 2FA 雙重驗證、第三方 OAuth（Google/GitHub）、SSO 或人機驗證（CAPTCHA），Agent 絕不可嘗試破解，應交由人類在同一個瀏覽器分頁中完成登入。
+- **核心思維**：若系統包含 2FA 雙重驗證、第三方 OAuth（社群登入/SSO）或人機驗證（CAPTCHA），Agent 絕不可嘗試破解，應交由人類在同一個瀏覽器分頁中完成登入。
 - **操作步驟**：
   1. Agent 調度 **`browser` subagent** 打開登入頁面（如 `http://localhost:3000/login`）。
   2. Agent 在對話中主動提示使用者：「**已為您在瀏覽器開啟登入頁面，請您在可見分頁中完成登入；完成後請回覆『已登入』，我將接續進行視覺排版審查。**」
@@ -260,7 +260,7 @@ AI 模型在撰寫 CSS 與 Tailwind 時，極易產生「視覺幻覺」（Hallu
   - 收到 browser agent 回傳的截圖或 DOM 數據後，直接進行視覺批判。
   - 修改代碼後，再次傳送訊息請 browser agent 重新整理頁面並截圖，反覆觀看直到確認排版合格。
 
-### 5.2 在 Claude Code / Codex / CLI 環境中
+### 5.2 在一般終端機或程式輔助環境（CLI / Terminal）中
 - 啟動本地靜態預覽：
   ```sh
   python3 skills/frontend-anti-slop/scripts/serve_preview.py path/to/index.html --port 8080

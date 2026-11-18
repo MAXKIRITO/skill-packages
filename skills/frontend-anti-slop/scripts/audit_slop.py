@@ -180,6 +180,28 @@ SLOP_PATTERNS = [
         ),
         "fix": "禁止萬用模板空話，第一句直接陳述具體功能、業務事實或實際解決的工程/產品問題。",
     },
+    {
+        "id": "SLOP-21",
+        "name": "過度禁慾論文風單一複讀 (Warm Paper + Terracotta Monoculture)",
+        "category": "色彩與風格收斂",
+        "regex": re.compile(
+            r"(?:#F5F4F0|#FAF9F5)[^>]*(?:#B84A2E|#D97706)|(?:#B84A2E|#D97706)[^>]*(?:#F5F4F0|#FAF9F5)",
+            re.IGNORECASE,
+        ),
+        "threshold": 3,
+        "fix": "避免全站陷入單一枯燥論文公版；依據業務自八大先鋒流派（如 Industrial Hardware、Layered Obsidian、Neo-Brutalist）中動態選型。",
+    },
+    {
+        "id": "SLOP-22",
+        "name": "死板單層 12 欄平面排版 (Sterile Single-Layer Layout)",
+        "category": "版面與序列",
+        "regex": re.compile(
+            r"<body[^>]*>(?:(?!bleed|sticky|z-10|z-20|pinned|scrolly|-mt-|-ml-|rotate-).)*<\/body>",
+            re.DOTALL | re.IGNORECASE,
+        ),
+        "threshold": 1,
+        "fix": "引入破格層疊 (Overlapping Depth)、黏性側欄 (Pinned Rail) 或邊緣外溢 (Bleed-out)，破除枯燥垂直平面流水線。",
+    },
 ]
 
 
