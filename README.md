@@ -8,7 +8,7 @@ PS.我只是把我平常做的事情和一些東東弄成skill方便我偷懶，
 
 ## Skills 清單
 
-本安裝包包含以下八個 skills：
+本安裝包包含以下九個 skills：
 
 | Skill | 解決什麼問題 | 主要檢查內容 |
 | --- | --- | --- |
@@ -20,6 +20,7 @@ PS.我只是把我平常做的事情和一些東東弄成skill方便我偷懶，
 | [mqtt-dataflow-check](skills/mqtt-dataflow-check/SKILL.md) | 裝置送出訊息但資料未出現、最新值不更新或重複／亂序 | 連線、訂閱、topic、consumer、queue、commit、snapshot、API 與 UI |
 | [cve-root-cause-review](skills/cve-root-cause-review/SKILL.md) | 將 CVE 研究轉成根因審查與可反證測試 | 55 項檢查、來源頁碼、適用性、證據與修補複測 |
 | [migration-review](skills/migration-review/SKILL.md) | schema 升級不相容、交易不完整、重跑或失敗恢復不明確 | 舊資料、constraint、runner、metadata、鎖、部署順序與回復方案 |
+| [multi-agent-coordination](skills/multi-agent-coordination/SKILL.md) | 面臨海量長文檔、跨專案／多 Repo 邊界，或需對抗審查確定需求 | 派發門檻、拓撲選型（平行分讀／跨庫隔離／對抗辯論）、派工簡報、反證收斂與生命週期清理 |
 
 只有 `i18n-check` 附帶執行腳本，其餘以工作流程與檢查規範為主。安裝 skill 不會啟動專案服務或執行檢查。
 
@@ -29,7 +30,7 @@ PS.我只是把我平常做的事情和一些東東弄成skill方便我偷懶，
 
 ### 從本機資料夾安裝
 
-在這個 README 所在的資料夾執行，將八個 skills 安裝給 Codex 跨專案使用：
+在這個 README 所在的資料夾執行，將九個 skills 安裝給 Codex 跨專案使用：
 
 ```sh
 npx skills add . --skill '*' -g -a codex
@@ -91,12 +92,13 @@ Agent 也可依任務與 skill 描述選用適合的流程。通常先選最貼�
 | 圖表異常 | `$timeseries-chart-debug 排查指定序列在這個時間區間缺點的原因。` |
 | 裝置資料 | `$mqtt-dataflow-check 依現有來源與 log，找出訊息在哪一段中斷。` |
 | Migration | `$migration-review 審查這次 migration 的舊資料相容性與失敗恢復，先不連資料庫。` |
+| 多 Agent 協同 | `$multi-agent-coordination 評估是否啟動多 Agent 研讀這三份架構規格，並對抗討論確定資料流需求。` |
 
 提供已知檔案、錯誤、時間區間、預期行為或 diff，通常能更快縮小範圍。不需要一開始提供整個專案或完整 log；避免貼入憑證、token 或真實個資。
 
 ### 工作模式
 
-原有七個開發 skills 使用一致的模式選擇方式：
+各開發 skills 使用一致的模式選擇方式：
 
 | 模式 | 適合需求 | 執行範圍 |
 | --- | --- | --- |
