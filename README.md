@@ -1,6 +1,6 @@
 # 開發與診斷 Skills
 
-一組可跨專案使用的開發工作流程，協助維護人與 AI 共用的專案摘要及開發要求、定位程式，以及檢查跨端契約、多語系、時序圖表、MQTT 資料流、資料庫 migration，並消除前端介面生成之「AI 味」（AI Slop）與統計平均值收斂。
+一組可跨專案使用的開發工作流程，協助維護人與 AI 共用的專案摘要及開發要求、定位程式，以及檢查跨端契約、多語系、時序圖表、MQTT 資料流、資料庫 migration、消除前端介面生成之「AI 味」（AI Slop），並透過人本設計思考與多 Agent 頭腦互搏推演頂級產品與介面架構。
 
 主要目標是減少不必要的文件閱讀、搜尋與重複分析，同時保留判斷所需的證據及驗證。各 skill 不限定特定框架或專案目錄，可分別安裝，也可一起使用。
 
@@ -8,7 +8,7 @@ PS.我只是把我平常做的事情和一些東東弄成skill方便我偷懶，
 
 ## Skills 清單
 
-本安裝包包含以下十個 skills：
+本安裝包包含以下十一個 skills：
 
 | Skill | 解決什麼問題 | 主要檢查內容 |
 | --- | --- | --- |
@@ -21,9 +21,10 @@ PS.我只是把我平常做的事情和一些東東弄成skill方便我偷懶，
 | [cve-root-cause-review](skills/cve-root-cause-review/SKILL.md) | 將 CVE 研究轉成根因審查與可反證測試 | 55 項檢查、來源頁碼、適用性、證據與修補複測 |
 | [migration-review](skills/migration-review/SKILL.md) | schema 升級不相容、交易不完整、重跑或失敗恢復不明確 | 舊資料、constraint、runner、metadata、鎖、部署順序與回復方案 |
 | [multi-agent-coordination](skills/multi-agent-coordination/SKILL.md) | 面臨海量長文檔、跨專案／多 Repo 邊界，或需對抗審查確定需求 | 派發門檻、拓撲選型（平行分讀／跨庫隔離／對抗辯論）、派工簡報、反證收斂與生命週期清理 |
+| [human-design-thinking](skills/human-design-thinking/SKILL.md) | AI 介面生成缺乏深度、千篇一律、忽略邊界狀態與人類視覺認知原則 | 雙鑽石人本流程、內容優先、格式塔視覺認知、Laws of UX、60-30-10 OKLCH 語意配色、模組化字階、8pt 空間網格、W3C 三層 Token、8 大互動狀態矩陣，以及「Lead 總監 + Designer 設計師 + Critic 審查員」三方頭腦互搏對抗審查 |
 | [frontend-anti-slop](skills/frontend-anti-slop/SKILL.md) | 前端與 UI 生成千篇一律、充滿「AI 味」（AI Slop）或陷入過度禁慾的「暖白底+陶土紅+襯線大字」乾枯論文風 | 專案設計資產優先、3 維度設計諮詢卡、八大先鋒流派、6 項實體工藝方法（微噪點/內切高光/破格層疊/實體阻尼）、0-Card 開放式畫布、前置合約閘門與瀏覽器直接觀看雙重閉環 |
 
-只有 `i18n-check` 與 `frontend-anti-slop` 附帶執行腳本（含靜態特徵檢測 `audit_slop.py` 與即時觀看預覽伺服器 `serve_preview.py`），其餘以工作流程與檢查規範為主。安裝 skill 不會啟動專案服務或執行檢查。
+只有 `i18n-check`、`human-design-thinking` 與 `frontend-anti-slop` 附帶執行腳本（含語系比較 `compare_locales.py`、規格書合規校驗器 `verify_design_spec.py`、Token 生成器 `generate_tokens.py`、靜態特徵檢測 `audit_slop.py` 與即時觀看伺服器 `serve_preview.py`），其餘以工作流程與檢查規範為主。安裝 skill 不會啟動專案服務或執行檢查。
 
 ## 快速安裝
 
@@ -94,6 +95,7 @@ Agent 也可依任務與 skill 描述選用適合的流程。通常先選最貼�
 | 裝置資料 | `$mqtt-dataflow-check 依現有來源與 log，找出訊息在哪一段中斷。` |
 | Migration | `$migration-review 審查這次 migration 的舊資料相容性與失敗恢復，先不連資料庫。` |
 | 多 Agent 協同 | `$multi-agent-coordination 評估是否啟動多 Agent 研讀這三份架構規格，並對抗討論確定資料流需求。` |
+| 人本設計思考與頭腦互搏 | `$human-design-thinking 針對新產品需求進行雙鑽石推演，啟動三方 Agent (Lead/Designer/Critic) 頭腦互搏，制定 60-30-10 OKLCH 色彩、8 狀態元件與設計規格書。` |
 | 前端去 AI 味與頂級工藝 | `$frontend-anti-slop 依專案設計文件或選用 Industrial Hardware / Layered Obsidian 流派，注入 6 大實體工藝方法，鎖定設計合約並直接觀看渲染校驗。` |
 
 提供已知檔案、錯誤、時間區間、預期行為或 diff，通常能更快縮小範圍。不需要一開始提供整個專案或完整 log；避免貼入憑證、token 或真實個資。
