@@ -227,3 +227,5 @@ python3 -B -m unittest discover -s tests -v
 ```text
 $cve-root-cause-review 對指定模組做範圍審查，依檢查矩陣列出適用項、證據與尚未驗證的缺口，先使用離線來源及 fixture。
 ```
+
+本儲存庫的 Qwen 宿主已提供白名單 `read_skill` 接入，使用方式與場次紀錄見 [宿主說明](../docs/SKILLS.md#cve-研究知識包)。這是此宿主的整合；單獨安裝本 skill 時仍由各自代理環境負責載入。

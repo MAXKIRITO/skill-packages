@@ -1,3 +1,5 @@
 __pycache__/
 *.py[cod]
 doc2skill
+
+skill-packages/
