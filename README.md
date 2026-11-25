@@ -13,6 +13,8 @@ PS.我只是把我平常做的事情和一些東東弄成skill方便我偷懶，
 | Skill | 解決什麼問題 | 主要檢查內容 |
 | --- | --- | --- |
 | [project-context](skills/project-context/SKILL.md) | 接手專案要重新摸索、專案摘要與固定要求分散或過期 | 人與 AI 共用的摘要、架構地圖、規則分類、文件入口及增量維護 |
+| [project-skill-receipt](skills/project-skill-receipt/SKILL.md) | 確認 AI 讀了哪些專案 skills | 固定開頭、實際讀取數量與專案相對路徑 |
+| [feature-commit-workflow](skills/feature-commit-workflow/SKILL.md) | 多項功能累積在單一 commit、訊息不一致、本機腳本誤提交或代理誤做 push | 依功能切分本機 commit、區分正式與本機測試、Conventional Commits、只允許人為 push |
 | [efficient-code-navigation](skills/efficient-code-navigation/SKILL.md) | 不知道實作在哪、反覆讀取與搜尋太多內容 | 任務入口、搜尋範圍、呼叫關係、資訊重用與探索停止條件 |
 | [api-contract-check](skills/api-contract-check/SKILL.md) | API 修改後使用方不相容、前後端欄位或錯誤格式不一致 | 路由、輸入、認證範圍、回應、序列化、分頁、重試及版本相容性 |
 | [i18n-check](skills/i18n-check/SKILL.md) | 缺漏翻譯、語系 key 不一致、文字或語系切換異常 | 靜態／動態 key、fallback、插值、plural、硬編碼 UI 與格式化 |
@@ -84,9 +86,12 @@ $api-contract-check 檢查這次 API 欄位修改是否影響呼叫端。
 
 Agent 也可依任務與 skill 描述選用適合的流程。通常先選最貼近問題的一個，不必每次要求載入全部 skills。
 
+本專案透過 [AGENTS.md](AGENTS.md) 要求每次任務套用 `project-skill-receipt`。其他專案若也要每次回報，可將同一條規則加入該專案的 `AGENTS.md`，並指向實際安裝位置。
+
 | 情境 | 提問範例 |
 | --- | --- |
 | 專案摘要與要求 | `$project-context 沿用現有文件，整理人與 AI 共用的專案摘要和固定開發要求，補上閱讀入口。` |
+| 功能分批提交 | `$feature-commit-workflow 實作這三項功能，每完成一項就建立獨立的本機 commit，不要 push。` |
 | 找實作 | `$efficient-code-navigation 找出這個錯誤的實際入口，只追相關呼叫鏈。` |
 | API 串接 | `$api-contract-check 核對這個 endpoint 的請求、回應與前端解包方式，修正不相容處。` |
 | 多語系 | `$i18n-check 檢查這個頁面在目前支援語系中的 key、插值與 fallback。` |
@@ -137,6 +142,8 @@ $project-context 把我明確指定的固定要求整理成規則，區分單次
 ```text
 skills/
 ├── project-context/
+├── project-skill-receipt/
+├── feature-commit-workflow/
 ├── efficient-code-navigation/
 ├── api-contract-check/
 ├── i18n-check/
